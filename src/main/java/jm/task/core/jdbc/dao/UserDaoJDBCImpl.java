@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoJDBCImpl implements UserDao {
-    List<User> userList = new ArrayList<>();
     private String createTable = """
             CREATE TABLE some_schema.user_table
             (
@@ -52,10 +51,9 @@ public class UserDaoJDBCImpl implements UserDao {
 
             preparedStatement.execute();
 
-        }catch (SQLSyntaxErrorException e) {
+        } catch (SQLSyntaxErrorException e) {
 
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
@@ -99,15 +97,14 @@ public class UserDaoJDBCImpl implements UserDao {
     }
 
     public List<User> getAllUsers() {
+        List<User> userList = new ArrayList<>();
         try (Connection connection = Util.openConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(getUsers)) {
 
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 userList.add(new User(resultSet.getString("name"), resultSet.getString("last_name"), resultSet.getByte("age")));
-
-                if (!userList.isEmpty())
-                    System.out.println(userList.get(userList.size() - 1));
+                System.out.println(userList.get(userList.size() - 1));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
