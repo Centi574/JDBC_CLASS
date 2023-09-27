@@ -9,7 +9,7 @@ import java.util.List;
 
 public class UserDaoJDBCImpl implements UserDao {
     private String createTable = """
-            CREATE TABLE some_schema.user_table
+            CREATE TABLE user_table
             (
             id BIGINT PRIMARY KEY AUTO_INCREMENT ,
             name TEXT NOT NULL ,
@@ -19,24 +19,24 @@ public class UserDaoJDBCImpl implements UserDao {
                         
             """;
     private String dropTable = """
-            DROP TABLE some_schema.user_table
+            DROP TABLE user_table
             """;
 
     private String removeUser = """
-            DELETE FROM some_schema.user_table
+            DELETE FROM user_table
             WHERE id = ?
             """;
     private String clearUserTable = """
-            DELETE FROM some_schema.user_table
+            DELETE FROM user_table
             """;
 
     private String saveUser = """
-            INSERT INTO some_schema.user_table (name, last_name, age)
+            INSERT INTO user_table (name, last_name, age)
             VALUES (?,?,?)
             """;
 
     private String getUsers = """
-            SELECT name, last_name, age FROM some_schema.user_table
+            SELECT name, last_name, age FROM user_table
             """;
 
 
